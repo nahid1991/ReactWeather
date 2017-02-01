@@ -26608,7 +26608,21 @@
 	var Weather = React.createClass({
 	  displayName: 'Weather',
 
+	  getInitialState: function () {
+	    return {
+	      location: 'Miami',
+	      temp: 88
+	    };
+	  },
+	  handleSearch: function (location) {
+	    this.setState({
+	      location: location,
+	      temp: 23
+	    });
+	  },
 	  render: function () {
+	    var { temp, location } = this.state;
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -26617,8 +26631,8 @@
 	        null,
 	        'Weather Component'
 	      ),
-	      React.createElement(WeatherForm, null),
-	      React.createElement(WeatherMessage, null)
+	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
+	      React.createElement(WeatherMessage, { temp: temp, location: location })
 	    );
 	  }
 	});
@@ -26632,20 +26646,32 @@
 	var React = __webpack_require__(1);
 
 	var WeatherForm = React.createClass({
-	  displayName: "WeatherForm",
+	  displayName: 'WeatherForm',
+
+	  onFormSubmit: function (e) {
+	    e.preventDefault();
+
+	    var location = this.refs.location.value;
+
+	    if (location.length > 0) {
+	      this.refs.location.value = '';
+
+	      this.props.onSearch(location);
+	    }
+	  },
 
 	  render: function () {
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      React.createElement(
-	        "form",
-	        null,
-	        React.createElement("input", { type: "text" }),
+	        'form',
+	        { onSubmit: this.onFormSubmit },
+	        React.createElement('input', { type: 'text', ref: 'location' }),
 	        React.createElement(
-	          "button",
+	          'button',
 	          null,
-	          "Get Weather"
+	          'Get Weather'
 	        )
 	      )
 	    );
@@ -26664,13 +26690,17 @@
 	  displayName: 'WeatherMessage',
 
 	  render: function () {
+	    var { temp, location } = this.props;
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'h3',
 	        null,
-	        'It is 40 in Philadelphia'
+	        'It is ',
+	        temp,
+	        ' in ',
+	        location
 	      )
 	    );
 	  }
