@@ -6,6 +6,7 @@ var WeatherForm = React.createClass({
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
   },
+
   onFormSubmit: function(e){
     e.preventDefault();
 

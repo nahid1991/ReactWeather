@@ -3,6 +3,12 @@ var {Link, IndexLink} = require('react-router');
 
 
 var Nav = React.createClass({
+  componentDidMount: function(){
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('search');
+    var searchBox = new google.maps.places.SearchBox(input);
+  },
+
   onSearch: function(e){
       e.preventDefault();
 
@@ -36,7 +42,7 @@ var Nav = React.createClass({
             <form onSubmit={this.onSearch}>
               <ul className="menu">
                 <li>
-                  <input type="search" placeholder="Search weather by city" ref="search"/>
+                  <input type="search"  id="search" placeholder="Search weather by city" ref="search"/>
                 </li>
                 <li>
                   <input type="submit" className="button" value="GET WEATHER"/>
