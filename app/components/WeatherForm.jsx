@@ -1,6 +1,11 @@
 var React = require('react');
 
 var WeatherForm = React.createClass({
+  componentDidMount: function(){
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+  },
   onFormSubmit: function(e){
     e.preventDefault();
 
@@ -17,7 +22,7 @@ var WeatherForm = React.createClass({
     return(
     <div>
       <form onSubmit={this.onFormSubmit}>
-        <input type="search" ref="location" placeholder="Search weather by city"/>
+        <input type="search" id="pac-input" ref="location" placeholder="Search weather by city"/>
         <button className="button hollow expanded">Get Weather</button>
       </form>
     </div>);
