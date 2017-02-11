@@ -19,8 +19,8 @@ var Nav = React.createClass({
       if(location.length > 0){
         console.log(location);
         this.refs.search.value = '';
-        browserHistory.push('/?location='  + encodedLocation);
-        // window.location = '/?location=' + encodedLocation;
+        // browserHistory.push('/?location='  + encodedLocation);
+        window.location = '/?location=' + encodedLocation;
       }
   },
 
